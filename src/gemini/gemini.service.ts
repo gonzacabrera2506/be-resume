@@ -21,14 +21,22 @@ export class GeminiService {
             }
         ];
 
-        const response = await this.ai.models.generateContent({
-            model: "gemini-2.5-flash",
-            contents: contents,
-            config: {
-                systemInstruction: 'Responde únicamente en español en formato markdown.'
-            }
-        });
+        try {
 
-        return response.text;
+            const response = await this.ai.models.generateContent({
+                model: "gemini-2.5-flash",
+                contents: contents,
+                config: {
+                    systemInstruction: 'Responde únicamente en español en formato markdown.'
+                }
+            });
+
+            return response.text;
+
+        } catch (error) {
+            console.log(error);
+        }
+
+
     }
 }
