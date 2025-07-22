@@ -7,7 +7,11 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
 
-  app.enableCors();
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Content-Type, Accept',
+  });
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -17,6 +21,8 @@ async function bootstrap() {
   );
 
 
-  await app.listen(process.env.PORT ?? 3000);
+  //await app.listen(process.env.PORT ?? 3000);
+  const port = process.env.PORT || 3000;
+  await app.listen(port, '0.0.0.0'); // Escucha en todas las interfaces
 }
 bootstrap();
